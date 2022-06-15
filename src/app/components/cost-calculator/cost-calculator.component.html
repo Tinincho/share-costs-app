@@ -1,0 +1,56 @@
+<p>Cost calculator:</p>
+<br>
+<div>
+    <div>
+        <p>Create a product:</p>
+        <form>
+            <p>Name:</p>
+            <input #getProductName type="text">
+            <p>Price:</p>
+            <input #getProductPrice type="number">
+            <br>
+            <br>
+            <button type="button" (click)="createProduct(getProductName.value, getProductPrice.value)">Add</button>
+        </form>
+        <br>
+        <p>All products created:</p>
+        <div>
+            <li *ngFor="let product of productsList">
+                <button type="button" (click)="addProductToPerson(product)">
+                <span class="name">Name: {{product.name}} </span>
+                <span class="price">Price: {{product.price}}</span>
+                </button>
+            </li>
+        </div>
+    </div>
+    <br>
+    <div>
+        <p>Create a person:</p>
+        <form>
+            <p>Name:</p>
+            <input #getPersonName type="text">
+            <br>
+            <p>Person products:</p>
+            <div>
+                <li *ngFor="let product of personProducts">
+                    <button type="button" (click)="addProductToPerson(product)">
+                    <span class="name">Name: {{product.name}} </span>
+                    <span class="price">Price: {{product.price}}</span>
+                    </button>
+                </li>
+            </div>
+            <br>
+            <button type="button" (click)="createPerson(getPersonName.value, personProducts)">Add</button>
+        </form>
+    </div>
+    <br>
+    <div>
+        <li *ngFor="let person of personsList">
+            <button type="button">
+            <span class="name">Name: {{person.name}} </span>
+            <span class="price">Total to pay: {{person.totalToPay}}</span>
+            </button>
+        </li>
+        <button type="button" (click)="calculateCosts()">Calculate!</button>
+    </div>
+</div>
