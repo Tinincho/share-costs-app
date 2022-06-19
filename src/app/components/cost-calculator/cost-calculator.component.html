@@ -1,56 +1,65 @@
-<p>Cost calculator:</p>
-<br>
-<div>
-    <div>
-        <p>Create a product:</p>
-        <form>
-            <p>Name:</p>
-            <input #getProductName type="text">
-            <p>Price:</p>
-            <input #getProductPrice type="number">
-            <br>
-            <br>
-            <button type="button" (click)="createProduct(getProductName.value, getProductPrice.value)">Add</button>
-        </form>
-        <br>
-        <p>All products created:</p>
-        <div>
-            <li *ngFor="let product of productsList">
-                <button type="button" (click)="addProductToPerson(product)">
-                <span class="name">Name: {{product.name}} </span>
-                <span class="price">Price: {{product.price}}</span>
+<div class="flex flex-col justify-center items-center gap-10 w-72">
+    <p class="text-3xl font-bold">Cost calculator</p>
+
+    <div class="flex flex-col gap-6 justify-start items-start">
+        <div >
+            <p class="text-xl font-semibold">Create a product</p>
+            <form class="flex flex-col gap-4" onkeypress="check(e)">
+                <div>
+
+                    <p>Name</p>
+                    <input #getProductName  type="text" />
+                    <p>Price</p>
+                    <input #getProductPrice type="number" />
+                </div>
+                
+                
+                <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createProduct(getProductName.value, getProductPrice.value)">
+                    Add product
                 </button>
-            </li>
-        </div>
-    </div>
-    <br>
-    <div>
-        <p>Create a person:</p>
-        <form>
-            <p>Name:</p>
-            <input #getPersonName type="text">
-            <br>
-            <p>Person products:</p>
+            </form>
+            
+            <p class="text-xl font-semibold mt-6">All products created</p>
             <div>
-                <li *ngFor="let product of personProducts">
+                <li *ngFor="let product of productsList">
                     <button type="button" (click)="addProductToPerson(product)">
-                    <span class="name">Name: {{product.name}} </span>
-                    <span class="price">Price: {{product.price}}</span>
+                        <span class="name">Name: {{ product.name }} </span>
+                        <span class="price">Price: {{ product.price }}</span>
                     </button>
                 </li>
             </div>
-            <br>
-            <button type="button" (click)="createPerson(getPersonName.value, personProducts)">Add</button>
-        </form>
-    </div>
-    <br>
-    <div>
-        <li *ngFor="let person of personsList">
-            <button type="button">
-            <span class="name">Name: {{person.name}} </span>
-            <span class="price">Total to pay: {{person.totalToPay}}</span>
-            </button>
-        </li>
-        <button type="button" (click)="calculateCosts()">Calculate!</button>
+        </div>
+        
+        <div>
+            <p class="text-xl font-semibold">Create a person:</p>
+            <form onkeypress="check(e)">
+                <p>Name:</p>
+                <input #getPersonName type="text" />
+                
+                <p>Person products:</p>
+                <div>
+                    <li *ngFor="let product of personProducts">
+                        <button type="button" (click)="addProductToPerson(product)">
+                            <span class="name">Name: {{ product.name }} </span>
+                            <span class="price">Price: {{ product.price }}</span>
+                        </button>
+                    </li>
+                </div>
+                
+                <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createPerson(getPersonName.value, personProducts)">
+                    Add person
+                </button>
+            </form>
+        </div>
+        
+        <div class="w-full max-w-xl flex flex-col flex-wrap ">
+            <li *ngFor="let person of personsList">
+                <button type=" max-w-2xl">
+                    <span class="name  max-w-2xl">Name: {{ person.name }} </span>
+                    <span class="price  max-w-2xl">Total to pay: {{ person.totalToPay }}</span>
+                </button>
+            </li>
+            <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid mt-2" (click)="calculateCosts()">Calculate</button>
+        </div>
     </div>
 </div>

@@ -67,4 +67,17 @@ export class CostCalculatorComponent implements OnInit {
     });
   }
 
+  onSubmit(form:FormGroup):void {
+      
+      this.createProduct(form.value.productName, form.value.productPrice);
+      this.createPerson(form.value.personName, form.value.personProducts);
+      this.calculateCosts();
+    }
+
+    check(e:Event):void {
+
+      e.preventDefault();
+    }
+
+
 }
