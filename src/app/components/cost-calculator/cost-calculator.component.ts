@@ -68,11 +68,16 @@ export class CostCalculatorComponent implements OnInit {
     });
   }
 
-  sendMessage():void {
-    this.personsList.forEach(person => {
-      window.open(`https://web.whatsapp.com/send?phone=${person.phoneNumber}&text=${person.name} tiene que pagar $${person.totalToPay}`);
-      
-  })
+  sendMessage(person: Person):void {
+   
+       window.open(`https://web.whatsapp.com/send?phone=${person.phoneNumber}&text=${person.name} tiene que pagar $${person.totalToPay}`, '_blank');
+      // window.open(`https://wa.me/${person.phoneNumber}?text=${person.name}tienequepagar$${person.totalToPay}`, '_blank');
+      const keyEvent = new KeyboardEvent("keydown", { key: "Enter"});
+  
+      //Trigger Eneter + Shift key Press
+      // const keyEvent = new KeyboardEvent("keydown", { key: "Enter", shiftKey: true });
+      document.body.dispatchEvent(keyEvent);
+ 
   }
   onSubmit(form:FormGroup):void {
       
