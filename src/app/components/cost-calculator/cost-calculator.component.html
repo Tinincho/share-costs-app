@@ -8,9 +8,9 @@
                 <div>
 
                     <p>Name</p>
-                    <input #getProductName minlength="4" pattern="[a-z]" required  type="text" />
+                    <input #getProductName minlength="4" pattern="[a-z]" required  type="text" class="px-2 bg-black rounded-md text-zinc-300" />
                     <p>Price</p>
-                    <input #getProductPrice min="1" type="number"  required type="number" />
+                    <input #getProductPrice min="1" type="number"  required type="number" class="px-2 bg-black rounded-md text-zinc-300" />
                 </div>
                 
                 
@@ -34,9 +34,9 @@
             <p class="text-xl font-semibold">Create a person:</p>
             <form onkeypress="check(e)">
                 <p>Name:</p>
-                <input #getPersonName minlength="1" pattern="[a-z]" type="text" />
+                <input #getPersonName minlength="1" pattern="[a-z]" type="text"  class="px-2 bg-black rounded-md text-zinc-300" />
                 <h3>Number</h3>
-                <input #getPersonNumber type="number"  min="1"   />
+                <input #getPersonNumber type="number"  min="1"   class="px-2 bg-black rounded-md text-zinc-300" />
                 
                 <p>Person products:</p>
                 <div>
@@ -54,7 +54,7 @@
             </form>
         </div>
         
-        <div class="w-full  max-w-xl flex flex-col  ">
+        <div class="w-full  max-w-xl flex flex-col items-start  ">
             <div *ngFor="let person of personsList">
                 <div class="flex  items-center justify-center gap-2">
                     <span class="name  max-w-2xl">Name: {{ person.name }} </span>
