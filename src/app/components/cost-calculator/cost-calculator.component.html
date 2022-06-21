@@ -35,6 +35,8 @@
             <form onkeypress="check(e)">
                 <p>Name:</p>
                 <input #getPersonName type="text" />
+                <h3>Number</h3>
+                <input #getPersonNumber type="text" />
                 
                 <p>Person products:</p>
                 <div>
@@ -46,7 +48,7 @@
                     </li>
                 </div>
                 
-                <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createPerson(getPersonName.value, personProducts)">
+                <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createPerson(getPersonName.value,getPersonNumber.value,personProducts)">
                     Add person
                 </button>
             </form>
@@ -60,6 +62,7 @@
                 </button>
             </li>
             <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid mt-2" (click)="calculateCosts()">Calculate</button>
+            <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid mt-2" (click)="sendMessage()">Send a text</button>
         </div>
     </div>
 </div>

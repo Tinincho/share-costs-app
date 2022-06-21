@@ -5,10 +5,12 @@ export class Person {
     public name:string;
     public productsOwned:Product[];
     public totalToPay = 0;
+    public phoneNumber:string = '';
 
-    constructor(setName:string, setProductsOwned:Product[]) {
+    constructor(setName:string,setNumber:string, setProductsOwned:Product[]) {
 
         this.name = setName;
         this.productsOwned = setProductsOwned;
+        this.phoneNumber = setNumber;
     }
 }
