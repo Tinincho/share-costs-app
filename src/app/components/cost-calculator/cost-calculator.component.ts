@@ -36,7 +36,7 @@ export class CostCalculatorComponent implements OnInit {
     }
   }
 
-  createPerson(getName:string, getProducts:Product[]):void {
+  createPerson(getName:string, getNumber:string,  getProducts:Product[]):void {
 
     var setProducts:Product[] = [];
 
@@ -49,11 +49,12 @@ export class CostCalculatorComponent implements OnInit {
         }
     });
 
-    this.personsList.push(new Person(getName, setProducts));
+    this.personsList.push(new Person(getName,getNumber, setProducts));
 
     console.log(this.productsList);
     console.log(getProducts);
     console.log(this.personsList);
+    console.log(getNumber);
   }
 
   calculateCosts():void {
@@ -67,10 +68,21 @@ export class CostCalculatorComponent implements OnInit {
     });
   }
 
+  sendMessage(person: Person):void {
+   
+       window.open(`https://web.whatsapp.com/send?phone=${person.phoneNumber}&text=${person.name} tiene que pagar $${person.totalToPay}`, '_blank');
+      // window.open(`https://wa.me/${person.phoneNumber}?text=${person.name}tienequepagar$${person.totalToPay}`, '_blank');
+      const keyEvent = new KeyboardEvent("keydown", { key: "Enter"});
+  
+      //Trigger Eneter + Shift key Press
+      // const keyEvent = new KeyboardEvent("keydown", { key: "Enter", shiftKey: true });
+      document.body.dispatchEvent(keyEvent);
+ 
+  }
   onSubmit(form:FormGroup):void {
       
       this.createProduct(form.value.productName, form.value.productPrice);
-      this.createPerson(form.value.personName, form.value.personProducts);
+      this.createPerson(form.value.personName,form.value.personNumber, form.value.personProducts);
       this.calculateCosts();
     }
 
