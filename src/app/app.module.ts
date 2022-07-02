@@ -8,11 +8,13 @@ import { ComponentsModule } from './components/components.module';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { environment } from 'src/environments/environment'; 
+import { environment } from 'src/environments/environment';
+import { UploadContactsComponent } from './components/upload-contacts/upload-contacts.component'; 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UploadContactsComponent
   ],
   imports: [
     BrowserModule,

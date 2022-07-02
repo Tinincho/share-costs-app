@@ -7,7 +7,7 @@ export class Person {
     public totalToPay = 0;
     public phoneNumber:string = '';
 
-    constructor(setName:string,setNumber:string, setProductsOwned:Product[]) {
+    constructor(setName:string, setNumber:string, setProductsOwned:Product[]) {
 
         this.name = setName;
         this.productsOwned = setProductsOwned;
