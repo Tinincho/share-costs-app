@@ -9,23 +9,26 @@ import { ComponentsModule } from './components/components.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
-import { UploadContactsComponent } from './components/upload-contacts/upload-contacts.component'; 
+import { ContactService } from './services/contact.service';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UploadContactsComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     ComponentsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [],
+  providers: [
+    ContactService,
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule , FormGroup } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.model';
-import { Person } from 'src/app/models/person.model';
 import { Product } from 'src/app/models/product.model';
 import { ContactService } from 'src/app/services/contact.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-cost-calculator',
@@ -12,96 +12,73 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class CostCalculatorComponent implements OnInit {
 
-  public productsList:Product[] = [];
-  public personProducts:Product[] = [];
-  
-  public personsList:Person[] = [];
-  public setPersonName:string = "";
-  public setPersonNumber:string = "";
+  public contactsList: Contact[] = [];
+  public contactProducts: Product[] = [];
 
-  constructor(public contact_service: ContactService) {
-    //this.contact_service.contacts_array;
+  constructor(public contactService: ContactService, public productService: ProductService) {
   }
 
-  ngOnInit():void { }
+  ngOnInit(): void { }
 
-  createProduct(getName:string, getPrice:string):void {
+  addProductToContact(getProduct: Product): void {
 
-    var getPriceNumber = Number(getPrice)
-    this.productsList.push(new Product(getName, getPriceNumber));
-  }
+    if (!this.contactProducts.includes(getProduct)) {
 
-  setContactToPerson(getContact:Contact):void {
-    
-    this.setPersonName = getContact.name;
-    this.setPersonNumber = getContact.phoneNumber;
-  }
-
-  addProductToPerson(getProduct:Product):void {
-
-    if (!this.personProducts.includes(getProduct)) {
-
-      this.personProducts.push(getProduct);
+      this.contactProducts.push(getProduct);
     } else {
 
-      this.personProducts.splice(this.personProducts.indexOf(getProduct), 1);
+      this.contactProducts.splice(this.contactProducts.indexOf(getProduct), 1);
     }
   }
 
-  createPerson(getProducts:Product[]):void {
+  createContact(getContactString: string): void {
 
-    var setProducts:Product[] = [];
+    this.productService.productsArray.forEach(element => {
 
-    this.productsList.forEach(element => {
+      if (this.contactProducts.includes(element)) {
 
-        if (getProducts.includes(element)) {
-
-          setProducts.push(element);
-          element.cantityOfOwners++;
-        }
+        element.cantityOfOwners++;
+      }
     });
 
-    this.personsList.push(new Person(this.setPersonName, this.setPersonNumber, setProducts));
+    var newContact = new Contact(getContactString.split(".")[0], getContactString.split(".")[1]);
 
-    console.log(this.productsList);
-    console.log(getProducts);
-    console.log(this.personsList);
-    //console.log(getNumber);
+    newContact.setProducts(this.contactProducts);
+
+    this.contactsList.push(newContact);
+
+    console.log(this.productService.productsArray);
+    console.log(this.contactProducts);
+    console.log(this.contactsList);
   }
 
-  calculateCosts():void {
+  calculateCosts(): void {
+    this.contactsList.forEach(contactIterator => {
 
-    this.personsList.forEach(personIterator => {
+      console.log(contactIterator.productsOwned);
+      contactIterator.productsOwned.forEach(element => {
 
-      personIterator.productsOwned.forEach(element => {
-
-        personIterator.totalToPay += element.price / element.cantityOfOwners;
+        contactIterator.totalToPay += element.price / element.cantityOfOwners;
       });
     });
+
+    console.log(this.productService.productsArray);
+    console.log(this.contactProducts);
+    console.log(this.contactsList);
+  }
+  sendMessage(contact: Contact): void {
+
+    window.open(`https://web.whatsapp.com/send?phone=${contact.phoneNumber}&text=${contact.name} tiene que pagar $${contact.totalToPay}`, '_blank');
+    // window.open(`https://wa.me/${contact.phoneNumber}?text=${contact.name}tienequepagar$${contact.totalToPay}`, '_blank');
+    const keyEvent = new KeyboardEvent("keydown", { key: "Enter" });
+
+    //Trigger Eneter + Shift key Press
+    // const keyEvent = new KeyboardEvent("keydown", { key: "Enter", shiftKey: true });
+    document.body.dispatchEvent(keyEvent);
   }
 
-  sendMessage(person: Person):void {
-   
-       window.open(`https://web.whatsapp.com/send?phone=${person.phoneNumber}&text=${person.name} tiene que pagar $${person.totalToPay}`, '_blank');
-      // window.open(`https://wa.me/${person.phoneNumber}?text=${person.name}tienequepagar$${person.totalToPay}`, '_blank');
-      const keyEvent = new KeyboardEvent("keydown", { key: "Enter"});
-  
-      //Trigger Eneter + Shift key Press
-      // const keyEvent = new KeyboardEvent("keydown", { key: "Enter", shiftKey: true });
-      document.body.dispatchEvent(keyEvent);
- 
+  check(event: Event): void {
+
+    event.preventDefault();
   }
-  onSubmit(form:FormGroup):void {
-      
-      this.createProduct(form.value.productName, form.value.productPrice);
-      this.createPerson(form.value.personProducts);
-      this.calculateCosts();
-    }
-
-    check(e:Event):void {
-
-      e.preventDefault();
-    }
-
-
 }

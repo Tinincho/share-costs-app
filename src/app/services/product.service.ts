@@ -1,20 +1,20 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { catchError, debounce, debounceTime, fromEvent, Observable } from 'rxjs';
-import { Contact } from '../models/contact.model';
+import { Product } from '../models/product.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ContactService {
-    contactsArray: Contact[] = [];
+export class ProductService {
+    productsArray: Product[] = [];
     dataInDataBase: any;
 
     constructor(private angularFireBase: AngularFireDatabase) {
     }
 
     setDataBase(): void {
-        this.angularFireBase.object('contacts/').update(this.contactsArray);
+        this.angularFireBase.object('products/').update(this.productsArray);
     }
 
     getDataBase(): void {
@@ -23,18 +23,18 @@ export class ContactService {
 
     getContacts() {
         return new Promise((resolve, reject) => {
-            this.dataInDataBase = this.angularFireBase.object('contacts/').snapshotChanges();
+            this.dataInDataBase = this.angularFireBase.object('products/').snapshotChanges();
 
             this.dataInDataBase.pipe(
                 catchError(async (error) => reject(this.message))
-            ).subscribe((action: { payload: { val: () => Contact[]; }; }) => {
-                resolve(this.contactsArray = action.payload.val());
+            ).subscribe((action: { payload: { val: () => Product[]; }; }) => {
+                resolve(this.productsArray = action.payload.val());
             });
         });
     }
 
-    setNewContact(newContact: Contact): void {
-        this.contactsArray.push(newContact);
+    setNewProduct(newProduct: Product): void {
+        this.productsArray.push(newProduct);
         this.setDataBase();
     }
 

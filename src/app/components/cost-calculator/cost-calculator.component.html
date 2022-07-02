@@ -1,86 +1,65 @@
 <div class="flex flex-col justify-center items-center gap-10 w-72">
-    <p class="text-3xl font-bold">Cost calculator</p>
+    <p class="text-3xl font-bold">Individual cost calculator</p>
 
     <div class="flex flex-col gap-6 justify-start items-start">
-        <div >
-            <p class="text-xl font-semibold">Create a product</p>
-            <form class="flex flex-col gap-4" onkeypress="check(e)">
-                <div>
-
-                    <p>Name</p>
-                    <input #getProductName minlength="4" pattern="[a-z]" required  type="text" class="px-2 bg-black rounded-md text-zinc-300" />
-                    <p>Price</p>
-                    <input #getProductPrice min="1" type="number"  required type="number" class="px-2 bg-black rounded-md text-zinc-300" />
-                </div>
-                
-                
-                <button type="submit" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createProduct(getProductName.value, getProductPrice.value)">
-                    Add product
-                </button>
-            </form>
-            
-            <p class="text-xl font-semibold mt-6">All products created</p>
+        <div>
+            <p class="text-xl font-semibold mt-6">Select from all products:</p>
             <div>
-                <div *ngFor="let product of productsList">
-                    <button type="submit" (click)="addProductToPerson(product)">
-                        <span class="name">Name: {{ product.name }} </span>
-                        <span class="price">Price: {{ product.price }}</span>
+                <div *ngFor="let product of productService.productsArray">
+                    <button type="submit" (click)="addProductToContact(product)">
+                        <span class="name">{{ product.name }} </span>
+                        <span class="price"> - {{ product.price }}$</span>
                     </button>
                 </div>
             </div>
         </div>
 
         <div>
-        </div>
+            <p class="text-xl font-semibold">Set contacts bills:</p>
+            <form onkeypress="check(event)">
 
-        <div>
-            <p class="text-xl font-semibold">Select a person:</p>
-            <form onkeypress="check(e)">
-                <!--
-                <p>Name:</p>
-                <input #getPersonName minlength="1" pattern="[a-z]" type="text"  class="px-2 bg-black rounded-md text-zinc-300" />
-                <h3>Number</h3>
-                <input #getPersonNumber type="number"  min="1"   class="px-2 bg-black rounded-md text-zinc-300" />
-                -->
-                
-                <select name="selectPerson" id="getContact">
-                        <option *ngFor="let contact of this.contact_service.contacts_array">{{ contact.name }}</option>
-                </select>
+                <p>Contact:</p>
+                <div class="select">
+                    <select #selectContact>
+                        <option *ngFor="let contact of contactService.contactsArray"
+                            value="{{contact.name + '.' + contact.phoneNumber}}">{{ contact.name }}</option>
+                    </select>
+                </div>
 
-                <p>Person products:</p>
+                <p>Purchased products:</p>
                 <div>
-                    <div *ngFor="let product of personProducts">
-                        <button type="button" (click)="addProductToPerson(product)">
-                            <span class="name">Name: {{ product.name }} </span>
-                            <span class="price">Price: {{ product.price }}</span>
+                    <div *ngFor="let product of contactProducts">
+                        <button type="button" (click)="addProductToContact(product)">
+                            <span class="name">{{ product.name }} </span>
+                            <span class="price"> - {{ product.price }}$</span>
                         </button>
                     </div>
                 </div>
 
-                <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createPerson(personProducts)">
-                    Add person
+                <button type="button"
+                    class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid"
+                    (click)="createContact(selectContact.value)">
+                    Add information
                 </button>
-
-                <!--
-                <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="createPerson(getPersonName.value,getPersonNumber.value,personProducts)">
-                    Add person
-                </button>
-                -->
             </form>
         </div>
 
         <div class="w-full  max-w-xl flex flex-col items-start  ">
-            <div *ngFor="let person of personsList">
+            <div *ngFor="let contact of contactsList">
                 <div class="flex  items-center justify-center gap-2">
-                    <span class="name  max-w-2xl">Name: {{ person.name }} </span>
-                    <span class="price  max-w-2xl">Total to pay: ${{ person.totalToPay }}</span>
-                    <button type="button" class="rounded-xl bg-white font-semibold" (click)="sendMessage(person)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                      </svg></button>
+                    <span class="name  max-w-2xl">{{ contact.name }}</span>
+                    <span class="price  max-w-2xl"> pays: {{ contact.totalToPay }}$</span>
+                    <button type="button" class="rounded-xl bg-white font-semibold" (click)="sendMessage(contact)"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg></button>
                 </div>
             </div>
-            <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid mt-2" (click)="calculateCosts()">Calculate</button>
-            <!-- <button type="button" class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid mt-2" (click)="sendMessage()">Send a text</button> -->
+            <button type="button"
+                class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid mt-2"
+                (click)="calculateCosts()">Calculate</button>
         </div>
     </div>
 </div>

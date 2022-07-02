@@ -9,14 +9,14 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class UploadContactsComponent implements OnInit {
 
-  constructor(public contact_service: ContactService) {
-    this.contact_service.getDataBase();
+  constructor(public contactService: ContactService) {
+    this.contactService.getDataBase();
   }
 
   ngOnInit(): void {
   }
 
   uploadToFirebase(setContactName: string, setContactPhoneNumber: string) {
-    this.contact_service.setNewContact(new Contact(setContactName, setContactPhoneNumber));
+    this.contactService.setNewContact(new Contact(setContactName, setContactPhoneNumber));
   }
 }
