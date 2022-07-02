@@ -1,8 +1,8 @@
-<p>upload-products works!</p>
-<div>
-    <p>Product:</p>
-    <input #getProductName minlength="4" pattern="[a-z]" required  type="text" class="px-2 bg-black rounded-md text-zinc-300" />
-    <input #getProductCost min="1" type="number"  required type="number" class="px-2 bg-black rounded-md text-zinc-300" />
+
+<div  class="flex flex-col items-center justify-center gap-2">
+    <p class="text-lg font-semibold">Product:</p>
+    <input #getProductName minlength="4" pattern="[a-z]" required  type="text" placeholder="Enter the name"  class="px-2 bg-black rounded-md text-zinc-300" />
+    <input #getProductCost min="1" type="number"  required type="number" placeholder="Enter the price" class="px-2 bg-black rounded-md text-zinc-300" />
      
     <button class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="uploadToFirebase(getProductName.value, getProductCost.value)">
         Add product

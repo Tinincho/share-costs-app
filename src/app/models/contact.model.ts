@@ -16,4 +16,7 @@ export class Contact {
     setProducts(setProductsOwned: Product[]): void {
         this.productsOwned = setProductsOwned;
     }
+    setTotalToPay(setTotalToPay: number): void {
+        this.totalToPay = setTotalToPay;
+    }
 }

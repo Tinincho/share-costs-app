@@ -32,7 +32,12 @@ export class CostCalculatorComponent implements OnInit {
   }
 
   createContact(getContactString: string): void {
+    console.log(this.contactsList.find(contact => contact.name ===  getContactString.split(".")[0]));
+    
+   
+  if(!this.contactsList.find(contact => contact.name ===  getContactString.split(".")[0])){
 
+    
     this.productService.productsArray.forEach(element => {
 
       if (this.contactProducts.includes(element)) {
@@ -43,7 +48,7 @@ export class CostCalculatorComponent implements OnInit {
 
     var newContact = new Contact(getContactString.split(".")[0], getContactString.split(".")[1]);
 
-    newContact.setProducts(this.contactProducts);
+    newContact.setProducts(this.contactProducts.slice()) ;
 
     this.contactsList.push(newContact);
 
@@ -51,10 +56,11 @@ export class CostCalculatorComponent implements OnInit {
     console.log(this.contactProducts);
     console.log(this.contactsList);
   }
+  }
 
   calculateCosts(): void {
     this.contactsList.forEach(contactIterator => {
-
+      contactIterator.setTotalToPay(0);
       console.log(contactIterator.productsOwned);
       contactIterator.productsOwned.forEach(element => {
 
