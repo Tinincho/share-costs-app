@@ -1,5 +1,7 @@
 # ShareCostsApp
 
+![screen-recording](https://user-images.githubusercontent.com/86995775/177019829-e0b63972-df78-4628-881f-7a298e815a95.gif)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
 ## Development server
