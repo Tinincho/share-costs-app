@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { ContactService } from './services/contact.service';
 import { ProductService } from './services/product.service';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProductService } from './services/product.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    IonicModule.forRoot()
   ],
   providers: [
     ContactService,

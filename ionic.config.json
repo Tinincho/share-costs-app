@@ -1,0 +1,10 @@
+{
+  "defaultProject": "share-costs-app",
+  "projects": {
+    "share-costs-app": {
+      "name": "share-costs-app",
+      "integrations": {},
+      "type": "angular"
+    }
+  }
+}
