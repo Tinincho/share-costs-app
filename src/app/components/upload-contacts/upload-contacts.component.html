@@ -7,4 +7,12 @@
     <button class="rounded-xl bg-white font-semibold w-full border-2 border-gray-400 border-solid" (click)="uploadToFirebase(getContactName.value, getContactPhoneNumber.value)">
         Add contact
     </button>
+    <p class="text-xl font-semibold mt-6">All contacts:</p>
+    <div>
+        <div *ngFor="let contact of contactService.contactsArray">
+                <span class="name">{{ contact.name }} </span>
+                <span class="price"> - {{ contact.phoneNumber }} </span>
+                <button type="button" (click)="deleteContact(contact)">X</button>
+        </div>
+    </div>
 </div>

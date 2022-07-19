@@ -17,6 +17,11 @@ export class ProductService {
         this.angularFireBase.object('products/').update(this.productsArray);
     }
 
+    updateDataBase(): void {
+        this.angularFireBase.object('products/').remove();
+        this.angularFireBase.object('products/').update(this.productsArray);
+    }
+
     getDataBase(): void {
         this.getContacts();
     }
@@ -34,8 +39,19 @@ export class ProductService {
     }
 
     setNewProduct(newProduct: Product): void {
+        if (this.productsArray == null)
+        {
+            this.productsArray = [];
+        }
+
         this.productsArray.push(newProduct);
         this.setDataBase();
+    }
+
+    deleteProduct(product: Product): void {
+        var index = this.productsArray.indexOf(product);
+        this.productsArray.splice(index, 1);
+        this.updateDataBase();
     }
 
     message(message: any): void | PromiseLike<void> {

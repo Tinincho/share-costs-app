@@ -17,6 +17,11 @@ export class ContactService {
         this.angularFireBase.object('contacts/').update(this.contactsArray);
     }
 
+    updateDataBase(): void {
+        this.angularFireBase.object('contacts/').remove();
+        this.angularFireBase.object('contacts/').update(this.contactsArray);
+    }
+
     getDataBase(): void {
         this.getContacts();
     }
@@ -34,8 +39,19 @@ export class ContactService {
     }
 
     setNewContact(newContact: Contact): void {
+        if (this.contactsArray == null)
+        {
+            this.contactsArray = [];
+        }
+
         this.contactsArray.push(newContact);
         this.setDataBase();
+    }
+
+    deleteContact(contact: Contact): void {
+        var index = this.contactsArray.indexOf(contact);
+        this.contactsArray.splice(index, 1);
+        this.updateDataBase();
     }
 
     message(message: any): void | PromiseLike<void> {

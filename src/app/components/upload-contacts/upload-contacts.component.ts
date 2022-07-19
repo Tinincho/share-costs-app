@@ -19,4 +19,8 @@ export class UploadContactsComponent implements OnInit {
   uploadToFirebase(setContactName: string, setContactPhoneNumber: string) {
     this.contactService.setNewContact(new Contact(setContactName, setContactPhoneNumber));
   }
+
+  deleteContact(getContact: Contact): void {
+    this.contactService.deleteContact(getContact);
+  }
 }

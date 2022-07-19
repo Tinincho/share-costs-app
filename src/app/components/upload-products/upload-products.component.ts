@@ -20,4 +20,8 @@ export class UploadProductsComponent implements OnInit {
   uploadToFirebase(setProductName: string, setProductPrice: string) {
     this.productService.setNewProduct(new Product(setProductName, Number(setProductPrice)));
   }
+
+  deleteProduct(getProduct: Product): void {
+    this.productService.deleteProduct(getProduct);
+  }
 }
